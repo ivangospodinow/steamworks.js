@@ -101,6 +101,14 @@ pub mod stats {
         pub global_rank_previous: i32,
     }
 
+    #[napi(object)]
+    pub struct LeaderboardEntryInfo {
+        pub user: String,
+        pub global_rank: i32,
+        pub score: i32,
+        pub details: Vec<i32>,
+    }
+
     #[napi]
     pub async fn download_leaderboard_entries(
         leaderboard_id: String, // Accept as String for NAPI compatibility
@@ -132,7 +140,7 @@ pub mod stats {
                     entries
                         .into_iter()
                         .map(|e| LeaderboardEntryInfo {
-                            user: e.user.raw(),
+                            user: e.user.raw().to_string(),
                             global_rank: e.global_rank,
                             score: e.score,
                             details: e.details,
@@ -142,13 +150,5 @@ pub mod stats {
             },
         );
         rx.await.ok().flatten()
-    }
-
-    #[napi(object)]
-    pub struct LeaderboardEntryInfo {
-        pub user: u64,
-        pub global_rank: i32,
-        pub score: i32,
-        pub details: Vec<i32>,
     }
 }
