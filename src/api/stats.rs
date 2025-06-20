@@ -1,6 +1,4 @@
-use napi::bindgen_prelude::*;
 use napi_derive::napi;
-use steamworks::{LeaderboardDisplayType, LeaderboardSortMethod};
 
 #[napi]
 pub mod stats {
