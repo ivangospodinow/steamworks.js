@@ -216,6 +216,20 @@ export declare namespace stats {
   export function store(): boolean
   export function resetAll(achievementsToo: boolean): boolean
   export function findOrCreateLeaderboard(name: string, sortMethod: number, displayType: number): Promise<bigint | null>
+  export function uploadLeaderboardScore(leaderboardId: string, method: number, score: number, details: Array<number>): Promise<UploadedScoreInfo | null>
+  export interface UploadedScoreInfo {
+    score: number
+    wasChanged: boolean
+    globalRankNew: number
+    globalRankPrevious: number
+  }
+  export interface LeaderboardEntryInfo {
+    user: string
+    globalRank: number
+    score: number
+    details: Array<number>
+  }
+  export function downloadLeaderboardEntries(leaderboardId: string, request: number, start: number, end: number, maxDetailsLen: number): Promise<Array<LeaderboardEntryInfo> | null>
 }
 export declare namespace utils {
   export function getAppId(): number
