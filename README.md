@@ -1,5 +1,5 @@
-[![Build Status](https://github.com/ivangospodinow/steamworks.js/actions/workflows/publish.yml/badge.svg)](https://github.com/ivangospodinow/steamworks.js/actions/workflows/publish.yml)
-[![npm](https://img.shields.io/npm/v/steamworks.js.svg)](https://npmjs.com/package/steamworks.js)
+[![Build Status](https://github.com/ivangospodinow/steamworks2.js/actions/workflows/publish.yml/badge.svg)](https://github.com/ivangospodinow/steamworks2.js/actions/workflows/publish.yml)
+[![npm](https://img.shields.io/npm/v/steamworks2.js.svg)](https://npmjs.com/package/steamworks2.js)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Chat](https://img.shields.io/discord/663831597690257431?label=chat&logo=discord)](https://discord.gg/H6B7UE7fMY)
 
@@ -23,7 +23,7 @@ I used [greenworks](https://github.com/greenheartgames/greenworks) for a long ti
 ## API
 
 ```js
-const steamworks = require('steamworks.js')
+const steamworks = require('steamworks2.js')
 
 // You can pass an appId, or don't pass anything and use a steam_appid.txt file
 const client = steamworks.init(480)
@@ -37,14 +37,14 @@ if (client.achievement.activate('ACHIEVEMENT')) {
 }
 ```
 
-You can refer to the [declarations file](https://github.com/ivangospodinow/steamworks.js/blob/main/client.d.ts) to check the API support and get more detailed documentation of each function.
+You can refer to the [declarations file](https://github.com/ivangospodinow/steamworks2.js/blob/main/client.d.ts) to check the API support and get more detailed documentation of each function.
 
 ## Installation
 
-To use steamworks.js you don't have to build anything, just install it from npm:
+To use steamworks2.js you don't have to build anything, just install it from npm:
 
 ```sh
-$: npm i steamworks.js
+$: npm i steamworks2.js
 ```
 
 ### Electron
@@ -65,15 +65,15 @@ const mainWindow = new BrowserWindow({
 To make the steam overlay working, call the `electronEnableSteamOverlay` on the end of your `main.js` file:
 
 ```js
-require('steamworks.js').electronEnableSteamOverlay()
+require('steamworks2.js').electronEnableSteamOverlay()
 ```
 
-For the production build, copy the relevant distro files from `sdk/redistributable_bin/{YOUR_DISTRO}` into the root of your build. If you are using electron-forge, look for [#75](https://github.com/ivangospodinow/steamworks.js/issues/75).
+For the production build, copy the relevant distro files from `sdk/redistributable_bin/{YOUR_DISTRO}` into the root of your build. If you are using electron-forge, look for [#75](https://github.com/ivangospodinow/steamworks2.js/issues/75).
 
 
 ## How to build
 
-> You **only** need to build if you are going to change something on steamworks.js code, if you are looking to just consume the library or use it in your game, refer to the [installation section](#installation).
+> You **only** need to build if you are going to change something on steamworks2.js code, if you are looking to just consume the library or use it in your game, refer to the [installation section](#installation).
 
 Make sure you have the latest [node.js](https://nodejs.org/en/), [Rust](https://www.rust-lang.org/tools/install) and [Clang](https://rust-lang.github.io/rust-bindgen/requirements.html). We also need [Steam](https://store.steampowered.com/about/) installed and running.
 

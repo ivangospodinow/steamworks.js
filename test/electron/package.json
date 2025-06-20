@@ -1,8 +1,8 @@
 {
-    "name": "steamworks.js-electron-test",
+    "name": "steamworks2.js-electron-test",
     "private": true,
     "dependencies": {
-        "steamworks.js": "../.."
+        "steamworks2.js": "../.."
     },
     "devDependencies": {
         "electron": "24.2.0",
