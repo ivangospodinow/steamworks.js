@@ -100,4 +100,55 @@ pub mod stats {
         pub global_rank_new: i32,
         pub global_rank_previous: i32,
     }
+
+    #[napi]
+    pub async fn download_leaderboard_entries(
+        leaderboard_id: String, // Accept as String for NAPI compatibility
+        request: i32,           // 0 = Global, 1 = GlobalAroundUser, 2 = Friends
+        start: i32,
+        end: i32,
+        max_details_len: i32,
+    ) -> Option<Vec<LeaderboardEntryInfo>> {
+        use steamworks::LeaderboardDataRequest;
+        let client = crate::client::get_client();
+        let leaderboard_id = leaderboard_id.parse::<u64>().ok()?;
+        let leaderboard =
+            unsafe { std::mem::transmute::<u64, steamworks::Leaderboard>(leaderboard_id) };
+        let request_type = match request {
+            0 => LeaderboardDataRequest::Global,
+            1 => LeaderboardDataRequest::GlobalAroundUser,
+            2 => LeaderboardDataRequest::Friends,
+            _ => LeaderboardDataRequest::Global,
+        };
+        let (tx, rx) = tokio::sync::oneshot::channel();
+        client.user_stats().download_leaderboard_entries(
+            &leaderboard,
+            request_type,
+            start as usize,
+            end as usize,
+            max_details_len as usize,
+            move |res| {
+                let _ = tx.send(res.ok().map(|entries| {
+                    entries
+                        .into_iter()
+                        .map(|e| LeaderboardEntryInfo {
+                            user: e.user.raw(),
+                            global_rank: e.global_rank,
+                            score: e.score,
+                            details: e.details,
+                        })
+                        .collect()
+                }));
+            },
+        );
+        rx.await.ok().flatten()
+    }
+
+    #[napi(object)]
+    pub struct LeaderboardEntryInfo {
+        pub user: u64,
+        pub global_rank: i32,
+        pub score: i32,
+        pub details: Vec<i32>,
+    }
 }
