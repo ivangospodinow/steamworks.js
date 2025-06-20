@@ -215,6 +215,7 @@ export declare namespace stats {
   export function setInt(name: string, value: number): boolean
   export function store(): boolean
   export function resetAll(achievementsToo: boolean): boolean
+  export function findOrCreateLeaderboard(name: string, sortMethod: number, displayType: number): Promise<bigint | null>
 }
 export declare namespace utils {
   export function getAppId(): number
