@@ -57,4 +57,47 @@ pub mod stats {
             });
         rx.await.ok().flatten()
     }
+
+    #[napi]
+    pub async fn upload_leaderboard_score(
+        leaderboard_id: String, // Accept as String for NAPI compatibility
+        method: i32,            // 0 = KeepBest, 1 = ForceUpdate
+        score: i32,
+        details: Vec<i32>,
+    ) -> Option<UploadedScoreInfo> {
+        use steamworks::UploadScoreMethod;
+        let client = crate::client::get_client();
+        let leaderboard_id = leaderboard_id.parse::<u64>().ok()?;
+        let leaderboard =
+            unsafe { std::mem::transmute::<u64, steamworks::Leaderboard>(leaderboard_id) };
+        let upload_method = match method {
+            0 => UploadScoreMethod::KeepBest,
+            1 => UploadScoreMethod::ForceUpdate,
+            _ => UploadScoreMethod::KeepBest,
+        };
+        let (tx, rx) = tokio::sync::oneshot::channel();
+        client.user_stats().upload_leaderboard_score(
+            &leaderboard,
+            upload_method,
+            score,
+            &details,
+            move |res| {
+                let _ = tx.send(res.ok().flatten().map(|v| UploadedScoreInfo {
+                    score: v.score,
+                    was_changed: v.was_changed,
+                    global_rank_new: v.global_rank_new,
+                    global_rank_previous: v.global_rank_previous,
+                }));
+            },
+        );
+        rx.await.ok().flatten()
+    }
+
+    #[napi(object)]
+    pub struct UploadedScoreInfo {
+        pub score: i32,
+        pub was_changed: bool,
+        pub global_rank_new: i32,
+        pub global_rank_previous: i32,
+    }
 }
