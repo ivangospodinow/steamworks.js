@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/ceifa/steamworks.js/actions/workflows/publish.yml/badge.svg)](https://github.com/ceifa/steamworks.js/actions/workflows/publish.yml)
+[![Build Status](https://github.com/ivangospodinow/steamworks.js/actions/workflows/publish.yml/badge.svg)](https://github.com/ivangospodinow/steamworks.js/actions/workflows/publish.yml)
 [![npm](https://img.shields.io/npm/v/steamworks.js.svg)](https://npmjs.com/package/steamworks.js)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Chat](https://img.shields.io/discord/663831597690257431?label=chat&logo=discord)](https://discord.gg/H6B7UE7fMY)
@@ -37,7 +37,7 @@ if (client.achievement.activate('ACHIEVEMENT')) {
 }
 ```
 
-You can refer to the [declarations file](https://github.com/ceifa/steamworks.js/blob/main/client.d.ts) to check the API support and get more detailed documentation of each function.
+You can refer to the [declarations file](https://github.com/ivangospodinow/steamworks.js/blob/main/client.d.ts) to check the API support and get more detailed documentation of each function.
 
 ## Installation
 
@@ -68,7 +68,7 @@ To make the steam overlay working, call the `electronEnableSteamOverlay` on the 
 require('steamworks.js').electronEnableSteamOverlay()
 ```
 
-For the production build, copy the relevant distro files from `sdk/redistributable_bin/{YOUR_DISTRO}` into the root of your build. If you are using electron-forge, look for [#75](https://github.com/ceifa/steamworks.js/issues/75).
+For the production build, copy the relevant distro files from `sdk/redistributable_bin/{YOUR_DISTRO}` into the root of your build. If you are using electron-forge, look for [#75](https://github.com/ivangospodinow/steamworks.js/issues/75).
 
 
 ## How to build
