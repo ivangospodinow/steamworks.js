@@ -216,6 +216,7 @@ export declare namespace stats {
   export function store(): boolean
   export function resetAll(achievementsToo: boolean): boolean
   export function findOrCreateLeaderboard(name: string, sortMethod: number, displayType: number): Promise<bigint | null>
+  export function findLeaderboard(name: string): Promise<bigint | null>
   export function uploadLeaderboardScore(leaderboardId: string, method: number, score: number, details: Array<number>): Promise<UploadedScoreInfo | null>
   export interface UploadedScoreInfo {
     score: number

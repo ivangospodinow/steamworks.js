@@ -59,6 +59,16 @@ pub mod stats {
     }
 
     #[napi]
+    pub async fn find_leaderboard(name: String) -> Option<u64> {
+        let client = crate::client::get_client();
+        let (tx, rx) = tokio::sync::oneshot::channel();
+        client.user_stats().find_leaderboard(&name, move |res| {
+            let _ = tx.send(res.ok().flatten().map(|lb| lb.raw()));
+        });
+        rx.await.ok().flatten()
+    }
+
+    #[napi]
     pub async fn upload_leaderboard_score(
         leaderboard_id: String, // Accept as String for NAPI compatibility
         method: i32,            // 0 = KeepBest, 1 = ForceUpdate
