@@ -231,6 +231,7 @@ export declare namespace stats {
     details: Array<number>
   }
   export function downloadLeaderboardEntries(leaderboardId: string, request: number, start: number, end: number, maxDetailsLen: number): Promise<Array<LeaderboardEntryInfo> | null>
+  export function getLeaderboardEntryCount(leaderboardId: string): Promise<number | null>
 }
 export declare namespace utils {
   export function getAppId(): number

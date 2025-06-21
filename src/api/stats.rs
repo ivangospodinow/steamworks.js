@@ -161,4 +161,17 @@ pub mod stats {
         );
         rx.await.ok().flatten()
     }
+
+    #[napi]
+    pub async fn get_leaderboard_entry_count(leaderboard_id: String) -> Option<i32> {
+        let client = crate::client::get_client();
+        let leaderboard_id = leaderboard_id.parse::<u64>().ok()?;
+        let leaderboard =
+            unsafe { std::mem::transmute::<u64, steamworks::Leaderboard>(leaderboard_id) };
+        Some(
+            client
+                .user_stats()
+                .get_leaderboard_entry_count(&leaderboard),
+        )
+    }
 }
